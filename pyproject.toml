@@ -1,0 +1,22 @@
+[project]
+name = "model-alignment-lab"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "accelerate>=1.13.0",
+    "datasets>=4.8.4",
+    "ipykernel>=7.2.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.8",
+    "pandas>=3.0.2",
+    "peft>=0.18.1",
+    "protobuf>=7.34.1",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.8.0",
+    "sentencepiece>=0.2.1",
+    "tqdm>=4.67.3",
+    "transformers>=5.4.0",
+    "trl>=1.0.0",
+]
