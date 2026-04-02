@@ -1,1 +1,9 @@
--r requirements.txt
+torch
+transformers
+datasets
+trl
+accelerate
+peft
+pandas<3
+protobuf<6
+matplotlib
