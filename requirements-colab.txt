@@ -1,12 +1,1 @@
-transformers
-datasets
-accelerate
-peft
-trl
-pandas
-matplotlib
-jupyter
-ipywidgets
-sentencepiece
-protobuf
-tqdm
+-r requirements.txt

@@ -1,7 +1,7 @@
 import json 
 import pandas as pd
 
-from src.utils.helpers import generate_response
+from model_alignment_lab.utils.helpers import generate_response
 
 def log_parser(trainer):
     """

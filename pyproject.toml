@@ -1,7 +1,7 @@
 [project]
-name = "model-alignment-lab"
+name = "model_alignment_lab"
 version = "0.1.0"
-description = "Add your description here"
+description = "Hands-on workshop for model alignment and fine-tuning"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 dependencies = [
@@ -20,3 +20,13 @@ dependencies = [
     "transformers>=5.4.0",
     "trl>=1.0.0",
 ]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

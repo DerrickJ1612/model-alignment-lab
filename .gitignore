@@ -18,3 +18,7 @@ logs/
 
 .cache/
 huggingface/
+
+uv.lock
+*.egg-info
+*.egg-info/*

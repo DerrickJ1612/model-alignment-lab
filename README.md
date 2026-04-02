@@ -6,7 +6,7 @@ Fine-tuning small language models with LoRA for structured outputs.
 
 Model Alignment Lab is a hands-on workshop focused on practical language model alignment. The goal is to take a base language model and adapt its behavior so that it follows instructions more reliably and produces structured, machine-readable outputs such as JSON.
 
-This workshop is designed to help you understand the gap between a general-purpose base model and a model that has been tuned for a specific task format. Rather than retraining a model from scratch, we use parameter-efficient fine-tuning with LoRA (Low-Rank Adaptation) to shape behavior with far lower compute and memory requirements.
+This workshop is designed to help you understand the gap between a general-purpose base model and a model that has been tuned for a specific task format. Rather than retraining a model from scratch, the workshop uses parameter-efficient fine-tuning with LoRA (Low-Rank Adaptation) to shape behavior with far lower compute and memory requirements.
 
 By the end of the workshop, you will be able to:
 
@@ -49,24 +49,17 @@ The exact task may vary depending on the notebook or dataset, but the core idea 
 - structured outputs and formatting constraints
 - overfitting and evaluation
 
-
 ## Environment Setup
 
-You can set up the project with either `uv` or `pip`.
+You can set up the project with either `uv` or `pip install -e .`.
 
 ### Python version
 
-This project currently targets:
-
-- Python 3.11
+This project currently targets Python 3.11.
 
 On Windows ARM systems, prefer an x64 Python installation if you plan to install PyTorch and related training dependencies.
 
----
-
-## Option 1: Setup with uv
-
-This is the preferred workflow if you are using `uv` for dependency management.
+## Installation
 
 ### 1. Clone the repository
 
@@ -75,137 +68,90 @@ git clone https://github.com/DerrickJ1612/model-alignment-lab.git
 cd model-alignment-lab
 ```
 
-### 2. Create a virtual environment
+### Option 1: Setup with uv
 
-If you are using the default `.venv` naming convention:
+This is the preferred workflow for local development.
+
+#### Create the environment and install project dependencies
 
 ```bash
 uv venv --python 3.11
 ```
 
-If you want to force a specific interpreter:
-
-```bash
-uv venv --python "C:\path\to\python.exe"
-```
-
-### 3. Activate the environment
-
-Windows:
-
-```powershell
-.\venv_x86\Scripts\Activate.ps1
-```
-
-or, if using the default environment name:
+Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
+uv sync
 ```
 
 macOS / Linux:
 
 ```bash
 source .venv/bin/activate
+uv sync
 ```
 
-### 4. Install base dependencies
-
-If using an activated custom environment such as `venv_x86`:
+If you already have an active custom virtual environment, use:
 
 ```bash
 uv sync --active
 ```
 
-If using the default `.venv`:
+### Option 2: Setup with pip
 
-```bash
-uv sync
-```
+If you are not using `uv`, create a virtual environment first and then install the project in editable mode.
 
-### 5. Install training dependencies
+#### Create a virtual environment
 
-
-If using `uv` with an active custom environment:
-
-```bash
-uv pip install -r requirements-train.txt
-```
-
----
-
-## Option 2: Setup with pip
-
-### 1. Create a virtual environment
-
-Windows:
+Windows PowerShell:
 
 ```powershell
-python -m venv venv
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
 macOS / Linux:
 
 ```bash
-python3 -m venv venv
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-### 2. Activate the environment
-
-Windows:
-
-```powershell
-venv\Scripts\Activate.ps1
-```
-
-macOS / Linux:
+#### Install the project
 
 ```bash
-source venv/bin/activate
+pip install -e .
 ```
 
-### 3. Install base dependencies
+### Option 3: Setup in Google Colab
 
-```bash
-pip install -r requirements.txt
+Colab does not need `uv`. Clone the repository and install the package in editable mode.
+
+```python
+!wget https://github.com/<your-username>/model-alignment-lab/archive/refs/heads/main.zip
+!unzip main.zip
+%cd model-alignment-lab-main
+!pip install -e .
 ```
-
-### 4. Install training dependencies
-
-```bash
-pip install -r requirements-train.txt
-```
-
-## Dependency Files
-
-The repository uses two dependency files:
-
-### `requirements.txt`
-
-This should contain the general project and notebook dependencies needed to explore the workshop.
-
-### `requirements-train.txt`
-
-This should contain the training stack, such as:
-
-- `transformers`
-- `accelerate`
-- `peft`
-- `trl`
-
-Separating these files helps keep the base setup lighter and reduces platform-specific installation issues.
 
 ## PyTorch Note
 
-Some training dependencies may pull in PyTorch automatically. On many systems this works fine, but on Windows ARM or other less common platforms you may need to install a compatible PyTorch build separately or use an x64 Python interpreter.
+PyTorch may need to be installed separately depending on your machine and accelerator.
 
-A common install command is:
+For example, on a Windows desktop with an NVIDIA GPU:
 
 ```bash
-pip install torch torchvision torchaudio
+uv pip install torch --index-url https://download.pytorch.org/whl/cu128
 ```
 
-If this fails on your platform, consult the official PyTorch installation instructions for a compatible wheel.
+Or with pip:
+
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cu128
+```
+
+If you are running CPU-only or using a hosted environment such as Colab, use the PyTorch build appropriate for that system.
 
 ## Running the Workshop
 
@@ -217,22 +163,21 @@ jupyter notebook
 
 Then open the notebooks in the `notebooks/` directory.
 
-
 The emphasis is not just on running training, but on understanding why the model changes behavior and how dataset quality influences the final result.
 
 ## Common Issues
 
-### `torch` fails to install
+### PyTorch installation problems
 
 This is usually a platform or wheel compatibility issue. Try:
 
 - using Python 3.11 x64
-- installing PyTorch separately
+- installing PyTorch separately for your platform
 - avoiding ARM-native Python on Windows for training workflows
 
-### `uv` creates the wrong environment
+### `uv` uses the wrong environment
 
-If you are not using the default `.venv` name, activate your environment first and run commands with `--active`:
+If you are not using the default `.venv` name, activate your environment first and run commands with `--active`.
 
 ```bash
 uv sync --active
@@ -243,25 +188,28 @@ uv run --active jupyter notebook
 
 ```text
 model-alignment-lab/
-├── configs/                 # Configuration files
-├── datasets/                # Training and evaluation datasets
-├── models/                  # Saved model artifacts or references
-├── notebooks/               # Workshop notebooks
-├── outputs/                 # Training outputs and checkpoints
-├── scripts/                 # Utility and entry scripts
-├── src/                     # Reusable source code
-├── venv_x86/                # Local virtual environment (do not commit)
+├── datasets/
+│   └── structured_json/
+├── models/
+│   └── smollm-travel-router-lora/
+├── notebooks/
+├── outputs/
+├── src/
+│   └── model_alignment_lab/
+│       ├── evaluation/
+│       └── utils/
 ├── .gitignore
 ├── .python-version
 ├── LICENSE
 ├── main.py
 ├── pyproject.toml
 ├── README.md
-├── requirements-train.txt
+├── requirements-colab.txt
 ├── requirements.txt
 └── uv.lock
 ```
 
+Note: local virtual environments such as `.venv/` or `.venv_x86/` should not be committed and are intentionally omitted from the project tree above.
 
 ## License
 
