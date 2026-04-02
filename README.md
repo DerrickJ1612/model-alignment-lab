@@ -129,7 +129,7 @@ pip install -e .
 Colab does not need `uv`. Clone the repository and install the package in editable mode.
 
 ```python
-!wget https://github.com/<your-username>/model-alignment-lab/archive/refs/heads/main.zip
+!wget https://github.com/DerrickJ1612/model-alignment-lab/archive/refs/heads/main.zip
 !unzip main.zip
 %cd model-alignment-lab-main
 !pip install -e .
