@@ -142,13 +142,13 @@ PyTorch may need to be installed separately depending on your machine and accele
 For example, on a Windows desktop with an NVIDIA GPU:
 
 ```bash
-uv pip install torch --index-url https://download.pytorch.org/whl/cu128
+uv pip install --force-reinstall torch --index-url https://download.pytorch.org/whl/cu128
 ```
 
 Or with pip:
 
 ```bash
-pip install torch --index-url https://download.pytorch.org/whl/cu128
+pip install --force-reinstall torch --index-url https://download.pytorch.org/whl/cu128
 ```
 
 If you are running CPU-only or using a hosted environment such as Colab, use the PyTorch build appropriate for that system.
