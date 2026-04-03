@@ -8,6 +8,7 @@ __pycache__/
 outputs/*
 !outputs/.gitkeep
 !outputs/README.md
+!outputs/__init__.py
 checkpoints/
 runs/
 logs/
